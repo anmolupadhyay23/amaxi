@@ -11,6 +11,7 @@ void main() => runApp(MaterialApp(
     'user_login': (context)=>userLogin(),
     'driver_login': (context)=>driverLogin(),
     'main_login': (context)=>loginAll(),
-    'home_screen': (context)=>HomePage()
+    'home_screen': (context)=>HomePage(),
+    // 'privacy_policy': (context)=>privacyPolicy()
   },
 ));
