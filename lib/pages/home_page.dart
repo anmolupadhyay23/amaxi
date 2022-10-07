@@ -59,8 +59,22 @@ class _HomePageState extends State<HomePage> {
                                   onPressed: () {
                                     Navigator.pushNamed(context, 'main_login');
                                   },
-                                  icon: Icon(Icons.login),
-                                  label: Text('Login'),
+                                  icon: Icon(Icons.person),
+                                  label: Text('User'),
+                                  style: ButtonStyle(
+                                      foregroundColor: MaterialStateProperty.all(Colors.white),
+                                      backgroundColor: MaterialStateProperty.all(Colors.amber)
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 35.0,right: 35.0,top: 15.0),
+                                child: TextButton.icon(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, 'driver_login_main');
+                                  },
+                                  icon: Icon(Icons.local_taxi),
+                                  label: Text('Driver'),
                                   style: ButtonStyle(
                                       foregroundColor: MaterialStateProperty.all(Colors.white),
                                       backgroundColor: MaterialStateProperty.all(Colors.amber)
