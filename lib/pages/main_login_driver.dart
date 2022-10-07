@@ -2,25 +2,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class userLogin extends StatefulWidget {
-  const userLogin({Key? key}) : super(key: key);
+class driverLoginMain extends StatefulWidget {
+  const driverLoginMain({Key? key}) : super(key: key);
 
   @override
-  State<userLogin> createState() => _userLoginState();
+  State<driverLoginMain> createState() => _driverLoginMainState();
 }
 
-class _userLoginState extends State<userLogin> {
+class _driverLoginMainState extends State<driverLoginMain> {
 
-  String user_email='';
-  String user_pass='';
-  String user_name='';
-  String user_number='';
+  String driver_email='';
+  String driver_pass='';
 
-  Future userRegister() async {
+  Future LoginDriver() async {
     try{
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: user_email, password: user_pass);
-      Navigator.pushNamed(context, 'main_login');
-    } on FirebaseAuthException catch (e){
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: driver_email, password: driver_pass);
+      Navigator.pushNamed(context, 'driver_dashboard');
+    }
+    on FirebaseAuthException catch (e) {
       print(e);
     }
   }
@@ -30,7 +29,7 @@ class _userLoginState extends State<userLogin> {
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       appBar: AppBar(
-        title: Text('User Register'),
+        title: Text('Driver Login'),
         centerTitle: true,
         backgroundColor: Colors.cyan,
         elevation: 0.0,
@@ -46,12 +45,14 @@ class _userLoginState extends State<userLogin> {
                   //   backgroundImage: AssetImage('assets/main_logo.jpeg'),
                   //   radius: 80,
                   // ),
-                  child: Lottie.network("https://assets10.lottiefiles.com/packages/lf20_wd1udlcz.json"),
-                  heightFactor: 0.43,
+                  child: Lottie.network("https://assets5.lottiefiles.com/packages/lf20_jol43osd.json"),
+                  heightFactor: 0.7,
                 ),
-                SizedBox(height: 30.0),
+                SizedBox(height: 50.0),
                 Container(
-                  height: 450,
+                  // width: MediaQuery.of(context).size.width,
+                  // height: MediaQuery.of(context).size.height,
+                  height: 400,
                   decoration: BoxDecoration(color: Colors.cyan,borderRadius: BorderRadius.circular(50)),
                   child: Column(
                     children: [
@@ -59,8 +60,8 @@ class _userLoginState extends State<userLogin> {
                         padding: const EdgeInsets.only(left: 35.0,right: 35.0,top: 15.0),
                         child: TextField(
                           keyboardType: TextInputType.emailAddress,
-                          onChanged: (value){
-                            user_email=value;
+                          onChanged: (value) {
+                            driver_email=value;
                           },
                           decoration: InputDecoration(
                               fillColor: Colors.white,
@@ -78,7 +79,7 @@ class _userLoginState extends State<userLogin> {
                         child: TextField(
                           obscureText: true,
                           onChanged: (value) {
-                            user_pass=value;
+                            driver_pass=value;
                           },
                           decoration: InputDecoration(
                               fillColor: Colors.white,
@@ -93,50 +94,36 @@ class _userLoginState extends State<userLogin> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 35.0,right: 35.0,top: 15.0),
-                        child: TextField(
-                          onChanged: (value) {
-                            user_name=value;
-                          },
-                          decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              prefixIcon: Icon(Icons.person),
-                              hintText: 'Name',
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30.0)
-                              )
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 35.0,right: 35.0,top: 15.0),
-                        child: TextField(
-                          keyboardType: TextInputType.number,
-                          onChanged: (value) {
-                            user_number=value; // Need to convert in int for use
-                          },
-                          decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              prefixIcon: Icon(Icons.phone_android),
-                              hintText: 'Phone Number',
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30.0)
-                              )
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 35.0,right: 35.0,top: 15.0),
                         child: TextButton(
-                          onPressed: userRegister,
-                          child: Text('Register as User'),
+                          onPressed: LoginDriver,
+                          child: Text('Login'),
                           style: ButtonStyle(
                               foregroundColor: MaterialStateProperty.all(Colors.white),
                               backgroundColor: MaterialStateProperty.all(Colors.amber)
                           ),
                         ),
-
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 70.0,right: 35.0,top: 15.0),
+                        child: Row(
+                          children: [
+                            Text("Don't have an account?", style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white54,
+                            ),
+                            ),
+                            TextButton(onPressed: () {
+                              // Navigate to driver registration
+                              Navigator.pushNamed(context, 'driver_login');
+                            },
+                                child: Text('Sign Up',style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.amber
+                                ))
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

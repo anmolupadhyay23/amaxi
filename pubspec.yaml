@@ -38,6 +38,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   lottie: ^1.4.3
 
+  # Firebase
+  firebase_auth: ^3.11.1
+  firebase_core: ^1.24.0
+
+  # Firebase database
+  cloud_firestore: ^3.5.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

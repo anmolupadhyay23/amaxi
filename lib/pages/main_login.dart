@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -10,7 +11,18 @@ class loginAll extends StatefulWidget {
 
 class _loginAllState extends State<loginAll> {
 
-  bool? isChecked=true;
+  String user_email='';
+  String user_pass='';
+
+  Future LoginUser() async {
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: user_email, password: user_pass);
+      Navigator.pushNamed(context, 'user_dashboard');
+    }
+    on FirebaseAuthException catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +48,7 @@ class _loginAllState extends State<loginAll> {
                   child: Lottie.network("https://assets5.lottiefiles.com/packages/lf20_jol43osd.json"),
                   heightFactor: 0.7,
                 ),
-                SizedBox(height: 30.0),
+                SizedBox(height: 50.0),
                 Container(
                   // width: MediaQuery.of(context).size.width,
                   // height: MediaQuery.of(context).size.height,
@@ -48,6 +60,9 @@ class _loginAllState extends State<loginAll> {
                           padding: const EdgeInsets.only(left: 35.0,right: 35.0,top: 15.0),
                           child: TextField(
                             keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) {
+                              user_email=value;
+                            },
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 filled: true,
@@ -62,6 +77,9 @@ class _loginAllState extends State<loginAll> {
                         Padding(
                           padding: const EdgeInsets.only(left: 35.0,right: 35.0,top: 15.0),
                           child: TextField(
+                            onChanged: (value) {
+                              user_pass=value;
+                            },
                             obscureText: true,
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
@@ -76,32 +94,8 @@ class _loginAllState extends State<loginAll> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 35.0,right: 35.0,top: 15.0),
-                          child: Row(
-                            children: [
-                              Checkbox(
-                                  value: isChecked,
-                                  activeColor: Colors.amberAccent,
-                                  onChanged: (newBool) {
-                                    setState(() {
-                                      isChecked=newBool;
-                                    });
-                                  },
-                              ),
-                              Text('I am user', style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white70,
-                                fontStyle: FontStyle.italic,
-                                decoration: TextDecoration.underline,
-                              ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 35.0,right: 35.0,top: 15.0),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: LoginUser,
                             child: Text('Login'),
                             style: ButtonStyle(
                                 foregroundColor: MaterialStateProperty.all(Colors.white),
@@ -119,7 +113,10 @@ class _loginAllState extends State<loginAll> {
                                 color: Colors.white54,
                               ),
                               ),
-                              TextButton(onPressed: () {},
+                              TextButton(onPressed: () {
+                                // Navigate to user registration
+                                Navigator.pushNamed(context, 'user_login');
+                              },
                                   child: Text('Sign Up',style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.amber
@@ -136,6 +133,6 @@ class _loginAllState extends State<loginAll> {
           ),
         ),
       ),
-    );;
+    );
   }
 }
